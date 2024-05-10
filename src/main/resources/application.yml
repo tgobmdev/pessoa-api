@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: pessoa-api
+  profiles:
+    active: dev
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    url: ${DATABASE_URL:null}
+    username: ${DATABASE_USERNAME:null}
+    password: ${DATABASE_PASSWORD:null}
+    driver-class-name: ${DATABASE_DRIVER_CLASS_NAME:null}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false
+  flyway:
+    enabled: true

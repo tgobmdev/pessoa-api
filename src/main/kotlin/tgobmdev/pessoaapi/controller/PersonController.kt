@@ -12,22 +12,22 @@ import tgobmdev.pessoaapi.response.PersonResponse
 import tgobmdev.pessoaapi.service.PersonService
 
 @RestController
-@RequestMapping(value = ["persons"])
+@RequestMapping(value = ["person"])
 class PersonController(
     private val personService: PersonService
 ) {
     @GetMapping
-    fun getPersons(): List<PersonResponse> {
-        return personService.getPersons()
+    fun fetchAllPersons(): List<PersonResponse> {
+        return personService.fetchAllPersons()
     }
 
     @GetMapping("/{id}")
-    fun getPersonById(@PathVariable id: Long): PersonResponse {
-        return personService.getPersonById(id)
+    fun fetchPerson(@PathVariable id: Long): PersonResponse {
+        return personService.fetchPerson(id)
     }
 
     @PostMapping
-    fun savePerson(@Validated @RequestBody personRequest: PersonRequest) {
-        personService.savePerson(personRequest)
+    fun createPerson(@Validated @RequestBody personRequest: PersonRequest) {
+        personService.createPerson(personRequest)
     }
 }

@@ -1,7 +1,7 @@
 package tgobmdev.pessoaapi.exception
 
-import tgobmdev.pessoaapi.message.MessageManager
 import tgobmdev.pessoaapi.message.MessageEnum
+import tgobmdev.pessoaapi.message.MessageManager
 
 class ApiException(val status: Int, val codeMessage: Int, override val message: String) :
     RuntimeException(message) {

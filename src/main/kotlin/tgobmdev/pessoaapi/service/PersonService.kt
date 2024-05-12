@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import tgobmdev.pessoaapi.component.AddressComponent
 import tgobmdev.pessoaapi.component.PersonComponent
+import tgobmdev.pessoaapi.entity.PersonEntity
 import tgobmdev.pessoaapi.exception.ApiException
 import tgobmdev.pessoaapi.mapper.PersonMapper
 import tgobmdev.pessoaapi.message.MessageEnum
@@ -16,14 +17,18 @@ class PersonService(
     private val personComponent: PersonComponent,
     private val addressComponent: AddressComponent
 ) {
+    private fun loadPersonEntityById(personId: Long): PersonEntity {
+        return personComponent.findPersonById(personId)
+            .orElseThrow { throw ApiException.of(404, MessageEnum.CODE_1) }
+    }
+
     fun fetchAllPersons(): List<PersonDetailsResponse> {
         val personEntities = personComponent.findAllPersons()
         return personMapper.toPersonDetailsResponseList(personEntities)
     }
 
     fun fetchPerson(personId: Long): PersonDetailsResponse {
-        val personEntity = personComponent.findPersonById(personId)
-            .orElseThrow { throw ApiException.of(404, MessageEnum.CODE_1) }
+        val personEntity = loadPersonEntityById(personId)
         return personMapper.toPersonDetailsResponse(personEntity)
     }
 
@@ -35,8 +40,7 @@ class PersonService(
 
     @Transactional
     fun linkPersonWithAddress(personId: Long, addressId: Long) {
-        val personEntity = personComponent.findPersonById(personId)
-            .orElseThrow { throw ApiException.of(404, MessageEnum.CODE_1) }
+        val personEntity = loadPersonEntityById(personId)
 
         val addressEntity = addressComponent.findAddressById(addressId)
             .orElseThrow { throw ApiException.of(404, MessageEnum.CODE_2) }

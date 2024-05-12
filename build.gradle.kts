@@ -19,6 +19,7 @@ java {
 repositories {
     mavenCentral()
 }
+
 extra["springCloudVersion"] = "2023.0.1"
 extra["mapstructVersion"] = "1.5.5.Final"
 

@@ -1,22 +1,20 @@
 package tgobmdev.pessoaapi.entity
 
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.SequenceGenerator
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "ADDRESS")
+@Table(name = "address")
 data class AddressEntity(
     @Id @GeneratedValue(
-        strategy = GenerationType.SEQUENCE, generator = "ADDRESS_SEQ"
+        strategy = GenerationType.SEQUENCE, generator = "address_seq"
     ) @SequenceGenerator(
-        name = "ADDRESS_SEQ", sequenceName = "SQ_ADDRESS", allocationSize = 1
+        name = "address_seq", sequenceName = "sq_address", allocationSize = 1
     ) val id: Long?,
     val street: String,
     val zipcode: String,
@@ -24,5 +22,7 @@ data class AddressEntity(
     val city: String,
     val state: String,
     val stateShortname: String,
-    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "person_id") var personEntity: PersonEntity
-)
+) {
+    @ManyToMany(mappedBy = "addressEntities")
+    var personEntities: MutableList<PersonEntity> = mutableListOf()
+}

@@ -17,7 +17,7 @@ fun interface AddressMapper {
         Mapping(source = "addressInfo.result.city", target = "city"),
         Mapping(source = "addressInfo.result.state", target = "state"),
         Mapping(source = "addressInfo.result.stateShortname", target = "stateShortname"),
-        Mapping(target = "personEntity", ignore = true)
+        Mapping(target = "personEntities", ignore = true)
     )
     fun toEntity(addressInfo: AddressInfo, addressRequest: AddressRequest): AddressEntity
 }

@@ -4,7 +4,7 @@ import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import tgobmdev.pessoaapi.entity.PersonEntity
 import tgobmdev.pessoaapi.request.PersonRequest
-import tgobmdev.pessoaapi.response.PersonResponse
+import tgobmdev.pessoaapi.response.PersonDetailsResponse
 
 @Mapper(componentModel = "spring")
 interface PersonMapper {
@@ -12,7 +12,7 @@ interface PersonMapper {
     @Mapping(target = "addressEntities", ignore = true)
     fun toEntity(personRequest: PersonRequest): PersonEntity
 
-    fun toResponse(personEntity: PersonEntity): PersonResponse
+    fun toPersonDetailsResponse(personEntity: PersonEntity): PersonDetailsResponse
 
-    fun toResponseList(personEntities: List<PersonEntity>): List<PersonResponse>
+    fun toPersonDetailsResponseList(personEntities: List<PersonEntity>): List<PersonDetailsResponse>
 }

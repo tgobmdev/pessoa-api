@@ -6,10 +6,11 @@ import org.mapstruct.Mappings
 import tgobmdev.pessoaapi.api.zipcode.response.AddressInfo
 import tgobmdev.pessoaapi.entity.AddressEntity
 import tgobmdev.pessoaapi.request.AddressRequest
+import tgobmdev.pessoaapi.response.AddressDetailsResponse
+import tgobmdev.pessoaapi.response.AddressInfoWithPeopleResponse
 
-@Mapper(componentModel = "spring")
-fun interface AddressMapper {
-
+@Mapper(componentModel = "spring", uses = [PersonMapper::class])
+interface AddressMapper {
     @Mappings(
         Mapping(source = "addressInfo.result.street", target = "street"),
         Mapping(source = "addressRequest.zipcode", target = "zipcode"),
@@ -20,4 +21,14 @@ fun interface AddressMapper {
         Mapping(target = "personEntities", ignore = true)
     )
     fun toEntity(addressInfo: AddressInfo, addressRequest: AddressRequest): AddressEntity
+
+    fun toAddressDetailsResponse(addressEntities: AddressEntity): AddressDetailsResponse
+
+    fun toAddressDetailsResponseList(addressEntities: List<AddressEntity>): List<AddressDetailsResponse>
+
+    @Mappings(
+        Mapping(source = "addressEntity", target = "addressDetailsResponse"),
+        Mapping(source = "addressEntity.personEntities", target = "personDetailsResponseList")
+    )
+    fun toAddressInfoWithPeopleResponse(addressEntity: AddressEntity): AddressInfoWithPeopleResponse
 }

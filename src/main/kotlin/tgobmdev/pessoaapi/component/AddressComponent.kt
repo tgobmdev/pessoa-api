@@ -8,11 +8,15 @@ import java.util.*
 @Component
 class AddressComponent(private val addressRepository: AddressRepository) {
 
-    fun saveAddress(addressEntity: AddressEntity) {
-        addressRepository.save(addressEntity)
+    fun findAllAddresses(): List<AddressEntity> {
+        return addressRepository.findAll()
     }
 
     fun findAddressById(id: Long): Optional<AddressEntity> {
         return addressRepository.findById(id)
+    }
+
+    fun saveAddress(addressEntity: AddressEntity) {
+        addressRepository.save(addressEntity)
     }
 }

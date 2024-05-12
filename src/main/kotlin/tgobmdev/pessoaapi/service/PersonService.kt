@@ -8,7 +8,7 @@ import tgobmdev.pessoaapi.exception.ApiException
 import tgobmdev.pessoaapi.mapper.PersonMapper
 import tgobmdev.pessoaapi.message.MessageEnum
 import tgobmdev.pessoaapi.request.PersonRequest
-import tgobmdev.pessoaapi.response.PersonResponse
+import tgobmdev.pessoaapi.response.PersonDetailsResponse
 
 @Service
 class PersonService(
@@ -16,15 +16,15 @@ class PersonService(
     private val personComponent: PersonComponent,
     private val addressComponent: AddressComponent
 ) {
-    fun fetchAllPersons(): List<PersonResponse> {
-        val persons = personComponent.findAllPersons()
-        return personMapper.toResponseList(persons)
+    fun fetchAllPersons(): List<PersonDetailsResponse> {
+        val personEntities = personComponent.findAllPersons()
+        return personMapper.toPersonDetailsResponseList(personEntities)
     }
 
-    fun fetchPerson(personId: Long): PersonResponse {
-        val person = personComponent.findPersonById(personId)
+    fun fetchPerson(personId: Long): PersonDetailsResponse {
+        val personEntity = personComponent.findPersonById(personId)
             .orElseThrow { throw ApiException.of(404, MessageEnum.CODE_1) }
-        return personMapper.toResponse(person)
+        return personMapper.toPersonDetailsResponse(personEntity)
     }
 
     @Transactional

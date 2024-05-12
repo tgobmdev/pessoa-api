@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import tgobmdev.pessoaapi.request.PersonRequest
-import tgobmdev.pessoaapi.response.PersonResponse
+import tgobmdev.pessoaapi.response.PersonDetailsResponse
 import tgobmdev.pessoaapi.service.PersonService
 
 @RestController
@@ -17,13 +17,13 @@ class PersonController(
     private val personService: PersonService
 ) {
     @GetMapping
-    fun fetchAllPersons(): List<PersonResponse> {
+    fun fetchAllPersons(): List<PersonDetailsResponse> {
         return personService.fetchAllPersons()
     }
 
-    @GetMapping("/{id}")
-    fun fetchPerson(@PathVariable id: Long): PersonResponse {
-        return personService.fetchPerson(id)
+    @GetMapping("/{personId}")
+    fun fetchPerson(@PathVariable personId: Long): PersonDetailsResponse {
+        return personService.fetchPerson(personId)
     }
 
     @PostMapping

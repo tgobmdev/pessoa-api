@@ -8,15 +8,15 @@ import java.util.*
 @Component
 class PersonComponent(private val personRepository: PersonRepository) {
 
-    fun savePerson(personEntity: PersonEntity) {
-        personRepository.save(personEntity)
+    fun findAllPersons(): List<PersonEntity> {
+        return personRepository.findAll()
     }
 
     fun findPersonById(id: Long): Optional<PersonEntity> {
         return personRepository.findById(id)
     }
 
-    fun findAllPersons(): List<PersonEntity> {
-        return personRepository.findAll()
+    fun savePerson(personEntity: PersonEntity) {
+        personRepository.save(personEntity)
     }
 }

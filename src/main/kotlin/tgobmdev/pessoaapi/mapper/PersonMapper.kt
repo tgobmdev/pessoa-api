@@ -9,7 +9,7 @@ import tgobmdev.pessoaapi.response.PersonDetailsResponse
 @Mapper(componentModel = "spring")
 interface PersonMapper {
 
-    @Mapping(target = "addressEntities", ignore = true)
+    @Mapping(target = "addressEntity", ignore = true)
     fun toEntity(personRequest: PersonRequest): PersonEntity
 
     fun toPersonDetailsResponse(personEntity: PersonEntity): PersonDetailsResponse

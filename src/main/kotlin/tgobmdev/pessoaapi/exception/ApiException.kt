@@ -1,18 +1,18 @@
 package tgobmdev.pessoaapi.exception
 
-import tgobmdev.pessoaapi.message.MessageEnum
+import tgobmdev.pessoaapi.enumeration.ErrorEnum
 import tgobmdev.pessoaapi.message.MessageManager
 
-class ApiException(val status: Int, val codeMessage: Int, override val message: String) :
+data class ApiException(val status: Int, val codeMessage: Int, override val message: String) :
     RuntimeException(message) {
 
-    constructor(status: Int, messageEnum: MessageEnum) : this(
-        status, messageEnum.code, MessageManager.getMessage(messageEnum.message)
+    constructor(status: Int, errorEnum: ErrorEnum) : this(
+        status, errorEnum.code, MessageManager.getMessage(errorEnum.message)
     )
 
     companion object {
-        fun of(status: Int, messageEnum: MessageEnum): ApiException {
-            return ApiException(status, messageEnum)
+        fun of(status: Int, errorEnum: ErrorEnum): ApiException {
+            return ApiException(status, errorEnum)
         }
     }
 }

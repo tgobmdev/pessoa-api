@@ -22,6 +22,7 @@ repositories {
 
 extra["springCloudVersion"] = "2023.0.1"
 extra["mapstructVersion"] = "1.5.5.Final"
+extra["gsonVersion"] = "2.10.1"
 
 dependencyManagement {
     imports {
@@ -39,6 +40,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("org.mapstruct:mapstruct:${property("mapstructVersion")}")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("com.google.code.gson:gson:${property("gsonVersion")}")
     kapt("org.mapstruct:mapstruct-processor:${property("mapstructVersion")}")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

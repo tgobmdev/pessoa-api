@@ -30,11 +30,4 @@ class PersonController(
     fun createPerson(@Validated @RequestBody personRequest: PersonRequest) {
         personService.createPerson(personRequest)
     }
-
-    @PostMapping("/{personId}/address/{addressId}")
-    fun linkPersonWithAddress(
-        @PathVariable personId: Long, @PathVariable addressId: Long
-    ) {
-        personService.linkPersonWithAddress(personId, addressId)
-    }
 }

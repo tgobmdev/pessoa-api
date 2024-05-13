@@ -2,12 +2,12 @@ package tgobmdev.pessoaapi.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import tgobmdev.pessoaapi.component.AddressComponent
+import tgobmdev.pessoaapi.component.AddressZipcodeComponent
 import tgobmdev.pessoaapi.component.PersonComponent
 import tgobmdev.pessoaapi.entity.PersonEntity
+import tgobmdev.pessoaapi.enumeration.ErrorEnum
 import tgobmdev.pessoaapi.exception.ApiException
 import tgobmdev.pessoaapi.mapper.PersonMapper
-import tgobmdev.pessoaapi.message.MessageEnum
 import tgobmdev.pessoaapi.request.PersonRequest
 import tgobmdev.pessoaapi.response.PersonDetailsResponse
 
@@ -15,11 +15,11 @@ import tgobmdev.pessoaapi.response.PersonDetailsResponse
 class PersonService(
     private val personMapper: PersonMapper,
     private val personComponent: PersonComponent,
-    private val addressComponent: AddressComponent
+    private val addressZipcodeComponent: AddressZipcodeComponent
 ) {
     private fun loadPersonEntityById(personId: Long): PersonEntity {
         return personComponent.findPersonById(personId)
-            .orElseThrow { throw ApiException.of(404, MessageEnum.CODE_1) }
+            .orElseThrow { throw ApiException.of(404, ErrorEnum.CODE_1) }
     }
 
     fun fetchAllPersons(): List<PersonDetailsResponse> {
@@ -34,18 +34,13 @@ class PersonService(
 
     @Transactional
     fun createPerson(personRequest: PersonRequest) {
-        val personEntity = personMapper.toEntity(personRequest)
-        personComponent.savePerson(personEntity)
-    }
+        val personEntity: PersonEntity = personMapper.toEntity(personRequest)
+        val addressRequest = personRequest.addressRequest
 
-    @Transactional
-    fun linkPersonWithAddress(personId: Long, addressId: Long) {
-        val personEntity = loadPersonEntityById(personId)
+        val addressEntity = addressZipcodeComponent //
+            .getOrCreateAddressFromExternalApi(addressRequest)
 
-        val addressEntity = addressComponent.findAddressById(addressId)
-            .orElseThrow { throw ApiException.of(404, MessageEnum.CODE_2) }
-
-        personEntity.addressEntities.add(addressEntity)
+        personEntity.addressEntity = addressEntity
         personComponent.savePerson(personEntity)
     }
 }

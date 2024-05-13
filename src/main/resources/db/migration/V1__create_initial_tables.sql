@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS address (
 CREATE TABLE IF NOT EXISTS person (
     id bigint DEFAULT nextval('sq_person') PRIMARY KEY,
     address_id bigint,
-    date_of_birth date,
     name_person varchar(255),
+    date_of_birth date,
     FOREIGN KEY (address_id) REFERENCES address (id)
 );

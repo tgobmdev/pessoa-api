@@ -9,7 +9,7 @@ import tgobmdev.pessoaapi.enumeration.ErrorEnum
 import tgobmdev.pessoaapi.exception.ApiException
 import tgobmdev.pessoaapi.mapper.PersonMapper
 import tgobmdev.pessoaapi.request.PersonRequest
-import tgobmdev.pessoaapi.response.PersonDetailsResponse
+import tgobmdev.pessoaapi.response.PersonResponse
 
 @Service
 class PersonService(
@@ -22,14 +22,14 @@ class PersonService(
             .orElseThrow { throw ApiException.of(404, ErrorEnum.CODE_1) }
     }
 
-    fun fetchAllPersons(): List<PersonDetailsResponse> {
+    fun fetchAllPersons(): List<PersonResponse> {
         val personEntities = personComponent.findAllPersons()
-        return personMapper.toPersonDetailsResponseList(personEntities)
+        return personMapper.toPersonResponseList(personEntities)
     }
 
-    fun fetchPerson(personId: Long): PersonDetailsResponse {
+    fun fetchPerson(personId: Long): PersonResponse {
         val personEntity = loadPersonEntityById(personId)
-        return personMapper.toPersonDetailsResponse(personEntity)
+        return personMapper.toPersonResponse(personEntity)
     }
 
     @Transactional

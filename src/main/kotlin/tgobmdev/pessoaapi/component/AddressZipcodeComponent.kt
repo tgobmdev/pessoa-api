@@ -7,8 +7,8 @@ import tgobmdev.pessoaapi.enumeration.ErrorEnum
 import tgobmdev.pessoaapi.exception.ApiException
 import tgobmdev.pessoaapi.mapper.AddressMapper
 import tgobmdev.pessoaapi.request.AddressRequest
-import tgobmdev.pessoaapi.response.AddressDetailsResponse
-import tgobmdev.pessoaapi.response.AddressInfoWithPeopleResponse
+import tgobmdev.pessoaapi.response.AddressPeopleResponse
+import tgobmdev.pessoaapi.response.AddressResponse
 
 @Component
 class AddressZipcodeComponent(
@@ -28,19 +28,19 @@ class AddressZipcodeComponent(
         return addressEntity
     }
 
-    fun getAllAddresses(): List<AddressDetailsResponse> {
+    fun getAllAddresses(): List<AddressResponse> {
         val addressEntities = addressComponent.findAllAddresses()
-        return addressMapper.toAddressDetailsResponseList(addressEntities)
+        return addressMapper.toAddressResponseList(addressEntities)
     }
 
-    fun getAddress(addressId: Long): AddressDetailsResponse {
+    fun getAddress(addressId: Long): AddressResponse {
         val addressEntity = loadAddressEntityById(addressId)
-        return addressMapper.toAddressDetailsResponse(addressEntity)
+        return addressMapper.toAddressResponse(addressEntity)
     }
 
-    fun getAddressInfoWithPeople(addressId: Long): AddressInfoWithPeopleResponse {
+    fun getAddressInfoWithPeople(addressId: Long): AddressPeopleResponse {
         val addressEntity = loadAddressEntityById(addressId)
-        return addressMapper.toAddressInfoWithPeopleResponse(addressEntity)
+        return addressMapper.toAddressPeopleResponse(addressEntity)
     }
 
     fun createAddress(addressRequest: AddressRequest): Pair<Unit, AddressEntity> {

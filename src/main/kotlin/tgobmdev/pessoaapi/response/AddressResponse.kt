@@ -1,6 +1,6 @@
 package tgobmdev.pessoaapi.response
 
-data class AddressDetailsResponse(
+data class AddressResponse(
     val id: Long,
     val street: String,
     val zipcode: String,

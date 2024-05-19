@@ -27,8 +27,8 @@ interface AddressMapper {
     fun toAddressResponseList(addressEntities: List<AddressEntity>): List<AddressResponse>
 
     @Mappings(
-        Mapping(source = "addressEntity", target = "addressResponse"),
-        Mapping(source = "addressEntity.personEntities", target = "personDetailsResponseList")
+        Mapping(source = "addressEntity", target = "address"),
+        Mapping(source = "addressEntity.personEntities", target = "persons")
     )
     fun toAddressPeopleResponse(addressEntity: AddressEntity): AddressPeopleResponse
 }

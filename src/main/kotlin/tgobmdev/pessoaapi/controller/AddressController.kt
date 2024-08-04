@@ -9,7 +9,7 @@ import tgobmdev.pessoaapi.response.AddressResponse
 import tgobmdev.pessoaapi.service.AddressService
 
 @RestController
-@RequestMapping(value = ["address"])
+@RequestMapping(value = ["addresses"])
 class AddressController(private val addressService: AddressService) {
     @GetMapping
     fun getAllAddresses(): List<AddressResponse> {
